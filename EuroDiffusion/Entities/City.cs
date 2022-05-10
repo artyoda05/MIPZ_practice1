@@ -4,14 +4,6 @@ namespace EuroDiffusion.Entities;
 
 internal class City
 {
-    public string Country { get; }
-
-    public int X { get; }
-
-    public int Y { get; } 
-
-    internal Dictionary<string, int> Coins { get; }
-
     private readonly Dictionary<string, int> _difference = new Dictionary<string, int>();
 
     public City(string country, int x, int y)
@@ -25,6 +17,14 @@ internal class City
             { country, 1000000 }
         };
     }
+
+    public string Country { get; }
+
+    public int X { get; }
+
+    public int Y { get; }
+
+    public Dictionary<string, int> Coins { get; }
 
     public void AddIncoming(Dictionary<string, int> incoming)
     {

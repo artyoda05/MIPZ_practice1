@@ -11,6 +11,6 @@ public class EuroDiffusionTest
     {
         var actual = testCase.Execute();
 
-        Assert.Equal(expected.Result, actual.Result);
+        Assert.Equal(expected.Results, actual.Results);
     }
 }

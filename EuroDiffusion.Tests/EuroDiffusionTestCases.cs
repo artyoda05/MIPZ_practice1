@@ -10,23 +10,13 @@ internal class EuroDiffusionTestCases : IEnumerable<object[]>
     {
         yield return new object[]
         {
-            new TestCase
-            {
-                Countries = new List<Country>
+            new TestCase(new List<Country>
                 {
-                    new Country
-                    {
-                        Name = "Luxembourg",
-                        Xl = 1,
-                        Yl = 1,
-                        Xr = 1,
-                        Yr = 1
-                    }
-                }
-            },
+                    new Country("Luxembourg", 1, 1, 1, 1)
+                }),
             new TestCaseResult
             {
-                Result = new Dictionary<string, int>
+                Results = new Dictionary<string, int>
                 {
                     { "Luxembourg", 0 }
                 }
@@ -35,31 +25,14 @@ internal class EuroDiffusionTestCases : IEnumerable<object[]>
 
         yield return new object[]
         {
-            new TestCase
-            {
-                Countries = new List<Country>
+            new TestCase(new List<Country>
                 {
-                    new Country
-                    {
-                        Name = "Netherlands",
-                        Xl = 1,
-                        Yl = 3,
-                        Xr = 2,
-                        Yr = 4
-                    },
-                    new Country
-                    {
-                        Name = "Belgium",
-                        Xl = 1,
-                        Yl = 1,
-                        Xr = 2,
-                        Yr = 2
-                    }
-                }
-            },
+                    new Country("Netherlands", 1, 3 ,2, 4),
+                    new Country("Belgium", 1, 1, 2, 2)                    
+                }),
             new TestCaseResult
             {
-                Result = new Dictionary<string, int>
+                Results = new Dictionary<string, int>
                 {
                     { "Belgium", 2 },
                     { "Netherlands", 2 },
@@ -69,39 +42,16 @@ internal class EuroDiffusionTestCases : IEnumerable<object[]>
 
         yield return new object[]
         {
-            new TestCase
-            {
-                Countries = new List<Country>
+            new TestCase(new List<Country>
                 {
-                    new Country
-                    {
-                        Name = "France",
-                        Xl = 1,
-                        Yl = 4,
-                        Xr = 4,
-                        Yr = 6
-                    },
-                    new Country
-                    {
-                        Name = "Spain",
-                        Xl = 3,
-                        Yl = 1,
-                        Xr = 6,
-                        Yr = 3
-                    },
-                    new Country
-                    {
-                        Name = "Portugal",
-                        Xl = 1,
-                        Yl = 1,
-                        Xr = 2,
-                        Yr = 2
-                    }
-                }
-            },
+                    new Country("France",1,4,4,6),
+                    
+                    new Country("Spain", 3, 1, 6, 3),
+                    new Country("Portugal", 1, 1, 2, 2)                    
+                }),
             new TestCaseResult
             {
-                Result = new Dictionary<string, int>
+                Results = new Dictionary<string, int>
                 {
                     { "Spain", 382},
                     { "Portugal", 416 },

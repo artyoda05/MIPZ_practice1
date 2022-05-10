@@ -1,9 +1,40 @@
-﻿namespace EuroDiffusion.Entities;
+﻿using System.Text;
+
+namespace EuroDiffusion.Entities;
 
 internal class TestCaseSet
 {
     public List<TestCase> TestCases { get; set; } = new List<TestCase>();
-    public List<TestCaseResult> Results { get; set; } = new List<TestCaseResult>();
+
+    public List<TestCaseResult> Results { get; private set; }
+
+    public static TestCaseSet Parse(string[] parse)
+    {
+        var testCaseSet = new TestCaseSet();
+
+        while (true)
+        {
+            if (parse.FirstOrDefault() == null 
+                || !int.TryParse(parse[0], out var size)
+                || size == 0)
+            {
+                break;
+            }
+
+            var testCase = TestCase.Parse(parse
+                .Skip(1)
+                .Take(size)
+                .ToArray());
+
+            testCaseSet.TestCases.Add(testCase);
+
+            parse = parse
+                .Skip(size + 1)
+                .ToArray();
+        }
+
+        return testCaseSet;
+    }
 
     public static TestCaseSet InputFromConsole()
     {
@@ -28,13 +59,17 @@ internal class TestCaseSet
             .ToList();
     } 
 
-    public void OutputToConsole()
+    public override string ToString()
     {
+        var str = new StringBuilder();
+
         for (var i = 0; i < Results.Count; i++)
         {
-            Console.WriteLine($"Case Number {i+1}");
+            str.AppendLine($"Case Number {i + 1}");
 
-            Results[i].OutputToConsole();
+            str.Append(Results[i].ToString());
         }
+
+        return str.ToString();
     }
 }

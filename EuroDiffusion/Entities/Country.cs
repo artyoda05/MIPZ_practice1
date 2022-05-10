@@ -2,15 +2,72 @@
 
 internal class Country
 {
-    public string Name { get; set; }
+    public Country(string name, int xl, int yl, int xh, int yh)
+    {
+        if (name == null)
+        {
+            throw new ArgumentNullException(nameof(name));
+        }
 
-    public int Xl { get; set; }
+        if (name.Length > 25)
+        {
+            throw new ArgumentException(nameof(name));
+        }
 
-    public int Yl { get; set; }
+        if (xl < 0 || xl > 10)
+        {
+            throw new ArgumentOutOfRangeException(nameof(xl));
+        }
 
-    public int Xr { get; set; }
+        if (xh < xl || xh > 10)
+        {
+            throw new ArgumentOutOfRangeException(nameof(xh));
+        }
 
-    public int Yr { get; set; }
+        if (yl < 0 || yl > 10)
+        {
+            throw new ArgumentOutOfRangeException(nameof(yl));
+        }
+
+        if (yh < yl || yh > 10)
+        {
+            throw new ArgumentOutOfRangeException(nameof(yh));
+        }
+
+        Name = name;
+        Xl = xl;
+        Yl = yl;
+        Xh = xh;
+        Yh = yh;
+    }
+
+    public string Name { get; }
+
+    public int Xl { get; }
+
+    public int Yl { get; }
+
+    public int Xh { get; }
+
+    public int Yh { get; }
+
+    public List<City> Cities
+    {
+        get
+        {
+            var cities = new List<City>();
+
+            for (var i = Xl; i <= Xh; i++)
+            {
+                for (var j = Yl; j <= Yh; j++)
+                {
+                    cities.Add(new City(Name, i, j));
+                }
+            }
+
+            return cities;
+        }
+    }
 
     public static Country InputFromConsole()
     {
@@ -28,36 +85,12 @@ internal class Country
             || splited[0].Length > 25
             || !int.TryParse(splited[1], out var Xl)
             || !int.TryParse(splited[2], out var Yl)
-            || !int.TryParse(splited[3], out var Xr)
-            || !int.TryParse(splited[4], out var Yr))
+            || !int.TryParse(splited[3], out var Xh)
+            || !int.TryParse(splited[4], out var Yh))
         {
             throw new Exception();
         }
 
-        return new Country
-        {
-            Name = splited[0],
-            Xl = Xl,
-            Yl = Yl,
-            Xr = Xr,
-            Yr = Yr
-        };
-    }
-
-    public List<City> Cities {
-        get
-        {
-            var cities = new List<City>();
-
-            for (var i = Xl; i <= Xr; i++)
-            {
-                for (var j = Yl; j <= Yr; j++)
-                {
-                    cities.Add(new City(Name, i, j));
-                }
-            }
-
-            return cities;
-        } 
+        return new Country(splited[0], Xl, Yl, Xh, Yh);
     }
 }
