@@ -14,7 +14,7 @@ internal class Country
             throw new ArgumentException(nameof(name));
         }
 
-        if (xl < 0 || xl > 10)
+        if (xl < 1 || xl > 10)
         {
             throw new ArgumentOutOfRangeException(nameof(xl));
         }
@@ -24,7 +24,7 @@ internal class Country
             throw new ArgumentOutOfRangeException(nameof(xh));
         }
 
-        if (yl < 0 || yl > 10)
+        if (yl < 1 || yl > 10)
         {
             throw new ArgumentOutOfRangeException(nameof(yl));
         }
