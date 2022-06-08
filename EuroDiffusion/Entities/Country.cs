@@ -2,6 +2,11 @@
 
 internal class Country
 {
+    const int CountryNameLengthBoundary = 25;
+    const int LowCoordinatesBoundary = 1;
+    const int HighCoordinatesBoundary = 1;
+    const int ExpectedAmountOfParsed = 5;
+
     public Country(string name, int xl, int yl, int xh, int yh)
     {
         if (name == null)
@@ -9,27 +14,27 @@ internal class Country
             throw new ArgumentNullException(nameof(name));
         }
 
-        if (name.Length > 25)
+        if (name.Length > CountryNameLengthBoundary)
         {
             throw new ArgumentException(nameof(name));
         }
 
-        if (xl < 1 || xl > 10)
+        if (xl < LowCoordinatesBoundary || xl > HighCoordinatesBoundary)
         {
             throw new ArgumentOutOfRangeException(nameof(xl));
         }
 
-        if (xh < xl || xh > 10)
+        if (xh < xl || xh > HighCoordinatesBoundary)
         {
             throw new ArgumentOutOfRangeException(nameof(xh));
         }
 
-        if (yl < 1 || yl > 10)
+        if (yl < LowCoordinatesBoundary || yl > HighCoordinatesBoundary)
         {
             throw new ArgumentOutOfRangeException(nameof(yl));
         }
 
-        if (yh < yl || yh > 10)
+        if (yh < yl || yh > HighCoordinatesBoundary)
         {
             throw new ArgumentOutOfRangeException(nameof(yh));
         }
@@ -81,8 +86,8 @@ internal class Country
         var splited = parse?.Split(' ');
 
         if (splited == null
-            || splited.Length != 5
-            || splited[0].Length > 25
+            || splited.Length != ExpectedAmountOfParsed
+            || splited[0].Length > CountryNameLengthBoundary
             || !int.TryParse(splited[1], out var Xl)
             || !int.TryParse(splited[2], out var Yl)
             || !int.TryParse(splited[3], out var Xh)

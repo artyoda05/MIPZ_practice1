@@ -2,11 +2,13 @@
 
 internal class TestCase
 {
+    const int MostCountriesAmount = 20;
+
     private readonly Dictionary<(int x, int y), City> _cities;
 
     public TestCase(List<Country> countries)
     {
-        if (countries.Count == 0 && countries.Count > 20)
+        if (countries.Count == 0 && countries.Count > MostCountriesAmount)
         {
             throw new ArgumentException(nameof(countries));
         }

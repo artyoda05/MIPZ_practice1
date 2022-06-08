@@ -4,6 +4,9 @@ namespace EuroDiffusion.Entities;
 
 internal class City
 {
+    const int CoinsAmount = 1000000;
+    const int RepresentativePortionSize = 1000;
+
     private readonly Dictionary<string, int> _difference = new Dictionary<string, int>();
 
     public City(string country, int x, int y)
@@ -14,7 +17,7 @@ internal class City
 
         Coins = new Dictionary<string, int>
         {
-            { country, 1000000 }
+            { country, CoinsAmount }
         };
     }
 
@@ -40,7 +43,7 @@ internal class City
 
         foreach (var pair in Coins)
         {
-            dict.Add(pair.Key, pair.Value / 1000);
+            dict.Add(pair.Key, pair.Value / RepresentativePortionSize);
 
             _difference.AddCoins(pair.Key, -dict[pair.Key]);
         }
