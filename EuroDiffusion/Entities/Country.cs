@@ -4,7 +4,7 @@ internal class Country
 {
     const int CountryNameLengthBoundary = 25;
     const int LowCoordinatesBoundary = 1;
-    const int HighCoordinatesBoundary = 1;
+    const int HighCoordinatesBoundary = 10;
     const int ExpectedAmountOfParsed = 5;
 
     public Country(string name, int xl, int yl, int xh, int yh)
