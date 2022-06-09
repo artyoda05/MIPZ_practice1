@@ -1,9 +1,16 @@
 ﻿using EuroDiffusion.Entities;
 
-var lines = File.ReadAllLines("Resources/input.txt");
+try
+{
+    var lines = File.ReadAllLines("Resources/input.txt");
 
-var set = TestCaseSet.Parse(lines);
+    var set = TestCaseSet.Parse(lines);
 
-set.Execute();
+    set.Execute();
 
-File.WriteAllText("Resources/output.txt", set.ToString());
+    File.WriteAllText("Resources/output.txt", set.ToString());
+}
+catch (Exception ex)
+{
+    Console.WriteLine(ex);
+}
