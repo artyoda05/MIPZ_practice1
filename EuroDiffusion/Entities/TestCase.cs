@@ -52,6 +52,8 @@ internal class TestCase
 
     public TestCaseResult Execute()
     {
+        Validate();
+
         var results = new Dictionary<string, int>();
 
         for (var days = 0; true; days++)
@@ -99,5 +101,51 @@ internal class TestCase
         {
             city.AddIncoming(incoming.GetOutcoming());
         }
+    }
+
+    private void Validate()
+    {
+        var firstCity = _cities.FirstOrDefault().Value;
+
+        var validated = new List<City> { firstCity };
+
+        var validatedLastIteration = new List<City> { firstCity };
+
+        while (true)
+        {
+            var validatedThisIteration = new List<City>();
+
+            foreach (var city in validatedLastIteration)
+            {
+                ValidateCity(validated, validatedThisIteration, (city.X + 1, city.Y));
+                ValidateCity(validated, validatedThisIteration, (city.X - 1, city.Y));
+                ValidateCity(validated, validatedThisIteration, (city.X, city.Y + 1));
+                ValidateCity(validated, validatedThisIteration, (city.X, city.Y - 1));
+            }
+
+            if (!validatedThisIteration.Any())
+            {
+                break;
+            }
+
+            validatedLastIteration = validatedThisIteration;
+        }
+
+
+        if (validated.Count != _cities.Count)
+        {
+            throw new Exception("Not all countries are connected!");
+        }
+    }
+
+    private void ValidateCity(List<City> validated, List<City> validatedThisIteration, (int x, int y) coordinates)
+    {
+        if (!_cities.TryGetValue(coordinates, out var city) || validated.Contains(city))
+        {
+            return;
+        }
+        
+        validated.Add(city);
+        validatedThisIteration.Add(city);
     }
 }
